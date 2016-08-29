@@ -10,6 +10,20 @@ app.controller("myController", ["$scope", "myServer", function ($scope, myServer
             console.log(data)
         })
     }
+}]) .controller("loginController", ["$scope","$http", function ($scope,$http) {
+    $scope.formData = {};
+    $scope.isAuthenticated = false;
+    $scope.welcome = '';
+    $scope.message = '';
+    $scope.submitFrom = function () {
+        $http.post('/home', $scope.formData)
+            .success(function (data, status, headers, config) {
+                console.log(data)
+            })
+            .error(function (data, status, headers, config) {
+               console.log("失败！");
+            });
+    };
 }])
     .controller("contentController", ["$scope", function ($scope) {
         $scope.submitForm = function (isValid) {
@@ -18,8 +32,7 @@ app.controller("myController", ["$scope", "myServer", function ($scope, myServer
         $scope.name = "我的表单！";
         $scope.userType = "guest";
     }])
-    .controller("uploadController", ["$scope","$http","toastr", "fileReader", function ($scope,$http,toastr,fileReader) {
-        toastr.success('Hello world!');
+    .controller("uploadController", ["$scope","$http", "fileReader", function ($scope,$http,fileReader) {
         $scope.getFile = function () {
             fileReader.readAsDataUrl($scope.file, $scope)
                 .then(function (result) {

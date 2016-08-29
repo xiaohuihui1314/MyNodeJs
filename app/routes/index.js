@@ -37,6 +37,7 @@ router
                 console.log(err);
                 return;
             } else if (userName == docs[0].userName && passWord == docs[0].passWord) {
+                console.log(docs);
                 req.session.res=true;
                 res.json({ code: 200 });
             }

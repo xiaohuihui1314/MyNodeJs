@@ -5,19 +5,19 @@ var app = angular.module("myapp", [
     "app.directive",
     "app.server"
 ]);
-
-app.factory("loginStates", [function () {
-    return {
-        request: function (config) {
-
-            return config;
-        }
-    };
-}]);
+//
+// app.factory("loginStates", [function () {
+//     return {
+//         request: function (config) {
+//
+//             return config;
+//         }
+//     };
+// }]);
 
 app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($stateProvider, $urlRouterProvider, $httpProvider) {
-    $httpProvider.interceptors.push("loginStates");
-    $urlRouterProvider.otherwise("/login");
+    // $httpProvider.interceptors.push("loginStates");
+    $urlRouterProvider.otherwise("/home");
     $stateProvider.state(
         "home", {
             "url": "/home",
@@ -39,7 +39,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($
             "url": "/login",
             views: {
                 "": {
-                    templateUrl: "../my-web/angularWeb/template/login.html",
+                    templateUrl: "../my-web/angularWeb/templates/login.html",
                     controller: "loginController"
                 }
             }
@@ -50,7 +50,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($
                 "url": "/other",
                 views: {
                     "content": {
-                        templateUrl: "../my-web/angularWeb/template/other.html"
+                        templateUrl: "../my-web/angularWeb/templates/other.html"
                     }
                 }
             })
@@ -59,7 +59,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($
                 "url": "/upload",
                 views: {
                     "": {
-                        templateUrl: "../my-web/angularWeb/template/upload.html",
+                        templateUrl: "../my-web/angularWeb/templates/upload.html",
                         controller: "uploadController"
                     }
                 }
@@ -69,7 +69,7 @@ app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($
                 "url": "/uploads", 
                 views: {
                     "": {
-                        templateUrl: "../my-web/angularWeb/template/uploads.html",
+                        templateUrl: "../my-web/angularWeb/templates/uploads.html",
                         controller: "uploadsController"
                     }
                 }
