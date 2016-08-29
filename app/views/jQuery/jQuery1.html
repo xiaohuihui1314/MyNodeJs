@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>Title</title>
+</head>
+<body>
+<input type="file" id="up" />
+<input type="file"   id="up1" multiple/>
+<img id="img">
+<button id="btn">上传</button>
+</body>
+<script src="../jquery/dist/jquery.js"></script>
+<script>
+    $("#up").change(function () {
+        console.log(this.value);
+        console.log(this.files[0]);
+        $("#img").attr("src",a(this.files[0]))
+    })
+    function  a(file) {
+        var url = null ;
+        if (window.createObjectURL!=undefined) { // basic
+            url = window.createObjectURL(file) ;
+        } else if (window.URL!=undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file) ;
+        } else if (window.webkitURL!=undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file) ;
+        }
+        return url ;
+    };
+
+    $("#btn").click(function () {
+
+        var formData = new FormData();
+        console.log(formData)
+        console.log( $("#up")[0].files[0])
+        formData.append("imageFile", $("#up")[0].files[0]);
+        $.ajax({
+            url: '/upload',
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (data) {
+
+                console.log(data)
+            }
+        });
+    });
+</script>
+</html>

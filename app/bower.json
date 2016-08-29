@@ -1,0 +1,25 @@
+{
+  "name": "my-web",
+  "description": "0.0.1",
+  "main": "app.js",
+  "authors": [
+    "LYH <1243817329@qq.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-toastr": "^2.0.0",
+    "angular-ui-router": "^0.3.1"
+  },
+  "devDependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+
+    <style>
+
+    </style>
+</head>
+<body>
+
+
+<input type="file" id="fileImg">
+
+<img src="" id="newImg" alt="">
+<button id="btn">
+    上传
+</button>
+
+<script type="text/javascript" src="../public/jquery/dist/jquery.min.js"></script>
+<script>
+    document.getElementById('fileImg').onchange=handleFileSelect;
+    $("#btn").click(function () {
+        var flies =$("#fileImg")[0].files[0];
+        console.log(flies);
+        var img=$("#newImg");
+        console.log(img)
+    })
+    function handleFileSelect() {
+        var f = this.files[0];//一次只上传1个文件，其实可以上传多个的
+        console.log(f);
+        var fr = new FileReader();
+        fr.readAsDataURL(f);
+        fr.onload = function (f) {
+            compressImg(this.result, 1024, function (data) {
+                $("#newImg").attr("src", data);//保存图片压缩后的64位编码
+            });
+        };
+    }
+    function compressImg(imgData, maxHeight, onCompress) {
+        if (!imgData)return false;
+        onCompress = onCompress || function () {
+                };
+        maxHeight = maxHeight || 800;//默认最大高度800px
+        var canvas = document.createElement("canvas");
+        var img = new Image();
+        img.src = imgData;
+        console.log(img);
+
+        img.onload = function () {
+            if (img.height > maxHeight) {//按最大高度等比缩放
+                img.width *= maxHeight / img.height;
+                img.height = maxHeight;
+            }
+            var ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            onCompress(canvas.toDataURL("image/jpeg"));
+        };
+    }
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>video</title>
+    <link rel="stylesheet" href="../my-web/jqueryWeb/video/css/index.css">
+</head>
+<body>
+<div class="container">
+    <section>
+        <div class="player  player-video ">
+            <div style="
+            position:absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            background-color: #f00;
+            color: #fff;
+            z-index: 9999   ;
+            ">123654</div>
+            <div class="video-wrap ">
+                <!--<video poster="../video/images/back.jpg"width="100%" height="100%" preload="auto" webkit-playsinline="" load="loaded" style="display: inline-block;">-->
+                    <!--<track src="huihui.vtt" kind="subtitles" srclang="en" label="English">-->
+                    <!--&lt;!&ndash;<track kind="subtitles" src="huihui.vtt" srclang="zh-tw" label="正体中文">&ndash;&gt;-->
+                    <!--很抱歉！你的浏览器不支持该视频播放！-->
+                <!--</video>-->
+                <video width="100%" height="100%" preload="auto"  load="loaded" type="application/x-mpegURL" webkit-playsinline="true" x-webkit-airplay="true"></video>
+            </div>
+            <div class="player-controls">
+                <div class="player-progress">
+                    <input
+                            id="videoSeek"
+                            class="player-progress-seek"
+                            type="range"
+                            min="0" max="100"
+                            step="0.5"
+                            value="0"
+                            data-player="seek">
+                    <progress class="player-progress-played" max="100" value="10"><span>0</span>% played</progress>
+                    <progress class="player-progress-buffer" max="100" value="15"><span>0</span>% buffered</progress>
+                </div>
+                <span class="player-controls-left span4">
+                    <button type="button" id="play">播放</button>
+                    <span class="player-time">
+                        <span class="player-current-time">00:03</span>
+                    </span>
+                    <span class="player-time">
+                        <span class="player-duration"></span>
+                    </span>
+                </span>
+
+                <span class="player-controls-right">
+                <label id="mute2229" for="mute2229">音量</label>
+                    <input id="volume6150" class="player-volume" type="range" min="0" max="10" value="5"
+                           data-player="volume">
+
+                    <button type="button" id="fullscreen" data-player="fullscreen">全屏</button>
+                    <span class="player-nav">
+                        <a class="prev btn" title="">
+                          <
+                        </a>
+                        <a class="next btn" title="">
+                           >
+                        </a>
+                    </span>
+                </span>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="../jquery/dist/jquery.min.js"></script>
+<script src="../my-web/jqueryWeb/video/js/index.js"></script>
+</body>
+</html>

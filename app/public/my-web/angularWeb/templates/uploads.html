@@ -1,0 +1,3 @@
+<input type="file" onchange="angular.element(this).scope().filesChanged(this)" multiple/>
+<button class="btn btn-primary form-control" ng-click="upload()">upload</button>
+<li ng-repeat="file in files">{{file.name}}</li>

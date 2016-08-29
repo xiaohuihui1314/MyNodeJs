@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <style>
+        .div{
+            float: left;
+            width: 50%;
+            height:50px;
+        }
+        .div1{
+            width: 50%;
+            height: 100px;
+
+            background-color: #000;
+        }
+        .div2{
+            background-color: #f00;
+        }
+        .div3{
+            background-color: #742;
+        }
+    </style>
+</head>
+<body>
+<div class="div div1"></div>
+<div class="div div2"></div>
+<div class="div div3"></div>
+
+
+</body>
+<script>
+
+    function a(x) {
+        a.prototype.x = x;
+        a.prototype.ShowA = function () {
+            console.log("A的Show方法!");
+        };
+    }
+    function b(x, y) {
+        b.prototype.y = y;
+        a.call(this, x);
+        b.prototype.ShowB = function () {
+            console.log("B的Show方法!");
+        };
+    }
+    a.prototype.constructor = a;
+    b.prototype = new a();
+    b.prototype.constructor = b;
+    var cc = new b(10, 11);
+    console.log(a.prototype);
+    console.log(b.prototype);
+    console.log(cc);
+    console.log(cc.x);
+    console.log(cc.y);
+    cc.ShowA();
+    cc.ShowB();
+
+</script>
+</html>

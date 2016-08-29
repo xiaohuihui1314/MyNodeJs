@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index1</title>
+</head>
+<body>
+
+<label for="aa">
+    <input type="checkbox" id="aa">aa
+</label>
+
+<script src="public/javascripts/jquery.min.js"></script>
+<script>
+    var a =$("#aa");
+    a.click(function () {
+         console.log($(this).is(":checked"));
+    });
+
+    console.log(navigator);
+
+    if(navigator.geolocation){
+        console.log("go!")
+    }
+     count=100;
+    function Counter(start) {
+        var count = start;
+        return {
+            increment: function() {
+                count++;
+            },
+
+            get: function() {
+                return count;
+            }
+        }
+    }
+
+    var foo = Counter(4);
+//    foo.increment();
+   console.log( foo.get()); // 5
+
+</script>
+</body>
+</html>

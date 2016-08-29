@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body>
+<form class="form-horizontal" enctype='multipart/form-data' method='post' action='javascript:;' role="form"
+      id="frmUploadFile">
+    <div class="form-group">
+        <img id="img1" alt="">
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-2">上传选择</label>
+        <div class="col-sm-4">
+            <input type="file" name="files" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-4">
+            <button id="btn" class="btn btn-primary"  >上传</button>
+            <button id="btn1" class="btn btn-primary"  >获取上传图片</button>
+            <span class="help-inline" id="spanMessage">选择文件，并上传</span>
+        </div>
+    </div>
+    <div class="form-group" id="imgWrap">
+        <img id="img" alt="">
+    </div>
+    <input type="file" id="file" style="display: none">
+    <button class="btn btn-primary form-control" id="btn2">美化上传</button>
+    <button class="btn btn-primary form-control" id="btn3">获取</button>
+</form>
+
+<script src="../jquery/dist/jquery.js"></script>
+<script>
+    var btn2 =document.getElementById("btn2");
+    var btn3 =document.getElementById("btn3");
+    var file =document.getElementById("file");
+
+    btn2.onclick=function () {
+//         file.click();
+        if (/msie/i.test(navigator.userAgent)) //IE
+        {
+            file.fireEvent("onclick");
+        } else {
+            var e = document.createEvent('MouseEvent');
+            e.initEvent('click', false, false);
+            file.dispatchEvent(e);
+        }
+    };
+    btn3.onclick=function () {
+        var file = new FormData($("#file")[0]);
+        console.log(file)
+    }
+ window.onload=function () {
+     var img;
+     $("#btn1").click(function () {
+         $("#img1").attr('src', img);
+     });
+     $("#btn").click(function () {
+         console.log($("#frmUploadFile"))
+         var formData = new FormData($("#frmUploadFile")[0]);
+         console.log(formData)
+         $.ajax({
+             url: '/jqueryupload',
+             type: 'POST',
+             data: formData,
+             async: false,
+             cache: false,
+             contentType: false,
+             processData: false,
+             success: function (data) {
+                 if (200 === data.code) {
+                     img=data.msg.url;
+                     var imgWrap =$("#imgWrap")
+                     imgWrap.empty();
+                     $("<img>").attr('src', data.msg.url).appendTo(imgWrap);
+                     $("#spanMessage").html("上传成功");
+                 } else {
+                     $("#spanMessage").html("上传失败");
+                 }
+                 console.log('imgUploader upload success, data:', data);
+             },
+             error: function () {
+                 $("#spanMessage").html("与服务器通信发生错误");
+             }
+         });
+     });
+
+
+
+ }
+</script>
+</body>
+</html>
