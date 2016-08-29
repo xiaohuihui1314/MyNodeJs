@@ -6,17 +6,26 @@ var app = angular.module("myapp", [
     "app.server"
 ]);
 //
-// app.factory("loginStates", [function () {
-//     return {
-//         request: function (config) {
-//
-//             return config;
-//         }
-//     };
-// }]);
+app.factory("loginStates", ["$rootScope","$window","$location",function ($rootScope,$window,$location) {
+    return {
+        request: function (config) {
+            console.log($rootScope);
+            console.log($window.sessionStorage.token);
+            if($window.sessionStorage.token){
+                console.log("aaaa");
+                config.headers.authorization = 'Bearer ' + $window.sessionStorage.token;
+            }else {
+                console.log("bbbb");
+                $location.path('/login');
+            }
+            return config;
+        }
+    };
+}]);
 
-app.config(["$stateProvider", "$urlRouterProvider", "$httpProvider", function ($stateProvider, $urlRouterProvider, $httpProvider) {
-    // $httpProvider.interceptors.push("loginStates");
+app.config([ "$httpProvider","$stateProvider", "$urlRouterProvider" ,function ( $httpProvider,$stateProvider, $urlRouterProvider) {
+
+    $httpProvider.interceptors.push("loginStates");
     $urlRouterProvider.otherwise("/home");
     $stateProvider.state(
         "home", {

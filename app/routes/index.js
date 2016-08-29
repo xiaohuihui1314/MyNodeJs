@@ -1,6 +1,5 @@
 var express = require('express');
 var mongoose = require("mongoose");
-
 require("../config/model.js");
 var Book = mongoose.model("Book");
 var User = mongoose.model("User");
@@ -11,7 +10,11 @@ var multipart = require('connect-multiparty');
 // 把session保存到mongoDB中
 // var cookieParser = require('cookie-parser');
 
-
+router.use( function(req, res, next) {
+    console.log(req.headers);
+    console.log("headers-----------------"+req.headers.authorization);
+    next();
+});
 router.get('/', function (req, res, next) {
     res.render('index')
 });
@@ -19,8 +22,7 @@ router
     .get('/login', function (req, res, next) {
         res.render('login')
     })
-    .get('/home', check, function (req, res, next) {
-
+    .get('/home', function (req, res, next) {
         res.render('home')
     })
     .post('/home', function (req, res, next) {
@@ -38,8 +40,13 @@ router
                 return;
             } else if (userName == docs[0].userName && passWord == docs[0].passWord) {
                 console.log(docs);
-                req.session.res=true;
-                res.json({ code: 200 });
+                req.session.state=true;
+                req.session.name=userName;
+                var token={
+                    state:true,
+                    name:userName
+                };
+                res.json({ token: token });
             }
 
         });
@@ -118,24 +125,19 @@ router
     // 主页
     .get("/angular", function (req, res, next) {
         res.render("angular/index");
-    })
+    });
     // 登录页面
-    .post("/loginStates", function (req, res) {
-            console.log(req.session.sign);
-            res.json({state: req.session.sign});
-        }
-    );
+
 // 判断是否登录
 function check(req, res, next) {
     // 假如登录就next()
-    console.log(req.session.res)
-    if (req.session.sign) {
+    if (req.session.state) {
         next();
     }
     // 没有登录就跳转登录页面
     else {
-        req.session.sign=false;
-        res.redirect("/loginStates");
+        req.session.state=false;
+        res.render("angular/index",{loginState:"false"});
     }
 }
 

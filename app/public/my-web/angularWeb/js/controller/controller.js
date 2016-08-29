@@ -10,7 +10,7 @@ app.controller("myController", ["$scope", "myServer", function ($scope, myServer
             console.log(data)
         })
     }
-}]) .controller("loginController", ["$scope","$http", function ($scope,$http) {
+}]) .controller("loginController", ["$scope","$http","$window", function ($scope,$http,$window) {
     $scope.formData = {};
     $scope.isAuthenticated = false;
     $scope.welcome = '';
@@ -19,6 +19,7 @@ app.controller("myController", ["$scope", "myServer", function ($scope, myServer
         $http.post('/home', $scope.formData)
             .success(function (data, status, headers, config) {
                 console.log(data)
+                $window.sessionStorage.token=data.token.state;
             })
             .error(function (data, status, headers, config) {
                console.log("失败！");
