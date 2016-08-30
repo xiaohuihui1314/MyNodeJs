@@ -13,7 +13,7 @@ app.directive("hello", function () {
         },
         link:function(scope,element,attrs){
             scope.state=attrs.state;
-            console.log(scope.state);
+         
         }
     }
 })

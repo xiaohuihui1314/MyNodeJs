@@ -9,7 +9,7 @@ var app = angular.module("myapp", [
 app.factory("loginStates", ["$rootScope","$window","$location",function ($rootScope,$window,$location) {
     return {
         request: function (config) {
-            console.log($rootScope);
+            
             console.log($window.sessionStorage.token);
             if($window.sessionStorage.token){
                 console.log("aaaa");
@@ -50,6 +50,16 @@ app.config([ "$httpProvider","$stateProvider", "$urlRouterProvider" ,function ( 
                 "": {
                     templateUrl: "../my-web/angularWeb/templates/login.html",
                     controller: "loginController"
+                }
+            }
+        }
+    ).state(
+        "register", {
+            "url": "/register",
+            views: {
+                "": {
+                    templateUrl: "../my-web/angularWeb/templates/register.html",
+                    controller: "registerController"
                 }
             }
         }

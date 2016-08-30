@@ -10,7 +10,7 @@ app.controller("myController", ["$scope", "myServer", function ($scope, myServer
             console.log(data)
         })
     }
-}]) .controller("loginController", ["$scope","$http","$window", function ($scope,$http,$window) {
+}]) .controller("loginController", ["$scope","$http","$window","$location" ,function ($scope,$http,$window,$location) {
     $scope.formData = {};
     $scope.isAuthenticated = false;
     $scope.welcome = '';
@@ -18,11 +18,30 @@ app.controller("myController", ["$scope", "myServer", function ($scope, myServer
     $scope.submitFrom = function () {
         $http.post('/home', $scope.formData)
             .success(function (data, status, headers, config) {
-                console.log(data)
-                $window.sessionStorage.token=data.token.state;
+                console.log(data);
+                if(data.token.state){
+                    $window.sessionStorage.token=data.token.state;
+                    $location.path("/home");
+                }else {
+                    $location.path("/register");
+                }
             })
             .error(function (data, status, headers, config) {
                console.log("失败！");
+            });
+    };
+}]).controller("registerController", ["$scope","$http","$window", function ($scope,$http,$window) {
+    $scope.formData = {};
+    $scope.isAuthenticated = false;
+    $scope.welcome = '';
+    $scope.message = '';
+    $scope.submitFrom = function () {
+        $http.post('/register', $scope.formData)
+            .success(function (data, status, headers, config) {
+                console.log(data)
+            })
+            .error(function (data, status, headers, config) {
+                console.log("失败！");
             });
     };
 }])

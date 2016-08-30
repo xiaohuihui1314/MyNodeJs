@@ -34,18 +34,23 @@ router
                 {"passWord": passWord}
             ]
         };
-        User.find(cond, function (err, docs) {
+        var token={};
+        User.findOne(cond, function (err, docs) {
+            console.log(docs)
             if (err) {
                 console.log(err);
+                console.log("用户名或者密码错误！");
                 return;
-            } else if (userName == docs[0].userName && passWord == docs[0].passWord) {
+            } 
+            if (docs) {
                 console.log(docs);
                 req.session.state=true;
-                req.session.name=userName;
-                var token={
-                    state:true,
-                    name:userName
-                };
+
+                token.state=true;
+                token.name=userName;
+                res.json({ token: token });
+            }else {
+                token.state=false;
                 res.json({ token: token });
             }
 
@@ -57,8 +62,9 @@ router
         res.render("register");
     })
     .post("/register", function (req, res, next) {
+
         var userName = req.body.userName;
-        var passWord = req.body.passWord;
+        var passWord = req.body.userPwd;
         var user = new User({
             userName: userName,
             passWord: passWord
