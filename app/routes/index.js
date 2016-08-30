@@ -39,7 +39,6 @@ router
             console.log(docs)
             if (err) {
                 console.log(err);
-                console.log("用户名或者密码错误！");
                 return;
             } 
             if (docs) {
