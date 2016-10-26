@@ -9,7 +9,6 @@ var app = angular.module("myapp", [
 app.factory("loginStates", ["$rootScope","$window","$location",function ($rootScope,$window,$location) {
     return {
         request: function (config) {
-            
             console.log($window.sessionStorage.token);
             if($window.sessionStorage.token){
                 console.log("aaaa");

@@ -40,7 +40,7 @@ router
             if (err) {
                 console.log(err);
                 return;
-            } 
+            }
             if (docs) {
                 console.log(docs);
                 req.session.state=true;
@@ -130,20 +130,19 @@ router
     // 主页
     .get("/angular", function (req, res, next) {
         res.render("angular/index");
+    })
+    .get("/test",function (req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "POST");
+        res.header("Access-Control-Allow-Headers", "x-requested-with,content-type");
+        res.json({code:"这是get请求！",data:req.body});
+    })
+    .post("/test",function (req, res, next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Methods", "POST");
+        res.header("Access-Control-Allow-Headers", "x-requested-with,content-type");
+        res.json({code:"这是post请求！",data:req.body});
     });
-    // 登录页面
 
-// 判断是否登录
-function check(req, res, next) {
-    // 假如登录就next()
-    if (req.session.state) {
-        next();
-    }
-    // 没有登录就跳转登录页面
-    else {
-        req.session.state=false;
-        res.render("angular/index",{loginState:"false"});
-    }
-}
 
 module.exports = router;
