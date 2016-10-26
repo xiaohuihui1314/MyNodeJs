@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1, minimum-scale=1">
+    <title>Title</title>
+</head>
+<body>
+<h1>register</h1>
+留言板：
+<textarea id="content">
+
+</textarea>
+
+<button id="submit">留言</button>
+<button id="obtain">获取</button>
+<!--<script src="../public/javascripts/jquery.min.js"></script>-->
+<script src="../jquery/dist/jquery.min.js"></script>
+<script>
+    $("#obtain").click(function () {
+        $.ajax({
+            type:"get",
+            url:"/list",
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+            }
+        })
+    });
+    $("#submit").click(function () {
+        var content =$("#content").val();
+        var data ={
+            "userName":"huihui",
+            "content":content
+        };
+        console.log(data)
+
+        $.ajax({
+            type:"POST",
+            url:"/messageList",
+            data:data,
+            dataType:"json",
+            success:function (data) {
+                console.log(data);
+            }
+        })
+    });
+</script>
+</body>
+</html>

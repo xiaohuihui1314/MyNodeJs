@@ -1,8 +1,10 @@
 var express = require('express');
 var mongoose = require("mongoose");
-require("../config/model.js");
-var Book = mongoose.model("Book");
+// require("../config/model");
+require("../pattern/users");
+// var Book = mongoose.model("Book");
 var User = mongoose.model("User");
+var MessageList = mongoose.model("MessageList");
 var router = express.Router();
 var fs = require("fs");
 var path = require('path');
@@ -10,13 +12,13 @@ var multipart = require('connect-multiparty');
 // 把session保存到mongoDB中
 // var cookieParser = require('cookie-parser');
 
-router.use( function(req, res, next) {
-    console.log(req.headers);
-    console.log("headers-----------------"+req.headers.authorization);
-    next();
-});
+// router.use( function(req, res, next) {
+//     console.log(req.headers);
+//     console.log("headers-----------------"+req.headers.authorization);
+//     next();
+// });
 router.get('/', function (req, res, next) {
-    res.render('index')
+    res.render('home/index')
 });
 router
     .get('/login', function (req, res, next) {
@@ -60,14 +62,48 @@ router
     .get("/register", function (req, res, next) {
         res.render("register");
     })
+    .get("/messageList", function (req, res, next) {
+        res.render("messageList");
+    })
+    .post("/messageList", function (req, res, next) {
+        var userName = req.body.userName;
+        var content = req.body.content;
+        console.log(userName)
+        console.log(content)
+        var messageList = new MessageList({
+            name: userName,
+            content: content
+            /* createTime:new Date()*/
+        });
+        messageList.save(function (err) {
+            if (err) return next(err);
+            return res.json({code:"200"});
+        });
+    })
+    .get("/list", function (req, res, next) {
+
+        MessageList.find({}, function (err, docs) {
+            console.log(docs)
+            if (err) {
+                console.log(err);
+                return;
+            }else {
+                return res.json(docs);
+            }
+
+
+        });
+    })
     .post("/register", function (req, res, next) {
 
         var userName = req.body.userName;
         var passWord = req.body.userPwd;
         var user = new User({
             userName: userName,
-            passWord: passWord
+            passWord: passWord,
+           /* createTime:new Date()*/
         });
+        console.log(new Date());
         user.save(function (err) {
             if (err) return next(err);
             return res.json(user);
