@@ -1,4 +1,6 @@
 $color1:#aeaeae;
 body{
-  background-color:$color1;
+  color:$color1;
+  background: url("../images/background.png") no-repeat top ;
+  background-size: cover;
 }

@@ -38,6 +38,11 @@ module.exports = {
                 test: /\.scss$/,
                 loader: 'style!css!sass'
             },
+            //npm install url-loader --save-dev
+            {
+                test: /\.(png|jpg)$/,
+                loader: 'url?limit=819200&name=[hash].[ext]'
+            }
           /*  {test: /\.css$/, loader: 'style-loader!css-loader'},
             {test: /\.js$/, loader: 'jsx-loader?harmony'},
             {test: /\.scss$/, loader: 'style!css!sass?sourceMap'},
