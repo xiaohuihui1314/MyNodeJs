@@ -41,7 +41,7 @@ module.exports = {
             //npm install url-loader --save-dev
             {
                 test: /\.(png|jpg)$/,
-                loader: 'url?limit=819200&name=[hash].[ext]'
+                loader: 'url?limit=8192&name=[hash].[ext]'
             }
           /*  {test: /\.css$/, loader: 'style-loader!css-loader'},
             {test: /\.js$/, loader: 'jsx-loader?harmony'},

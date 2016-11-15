@@ -1,6 +1,13 @@
-$color1:#aeaeae;
+$color:#aeaeae;
+$width:50px;
+$height:50px;
 body{
-  color:$color1;
-  background: url("../images/background.png") no-repeat top ;
+  background-color:$color;
+
+}
+div{
+  width: $width;
+  height: $height;
+  background: url("../images/top.png") no-repeat top ;
   background-size: cover;
 }
